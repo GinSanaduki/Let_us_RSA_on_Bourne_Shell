@@ -130,6 +130,30 @@ BEGIN{
 
 ```
 
+```awk
+
+#!/usr/bin/gawk -f
+# test4.awk
+# awk -f test4.awk
+
+{
+	print $1/NR RS $2/NR;
+}
+
+
+```
+
+```awk
+#!/usr/bin/gawk -f
+# test5.awk
+# awk -f test5.awk
+
+a[$1]++{print;exit;}
+
+```
+
+
+
 
 
 
