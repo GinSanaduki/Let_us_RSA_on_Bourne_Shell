@@ -203,7 +203,7 @@ BEGIN{
 * 冒頭のJaba the Huttを公開鍵（public=5）で暗号化する。
 
 元の数字を5回かけて、133の余りを出す。
-
+```bash
 $ /usr/bin/gawk -M -f test8.awk -v Max=$p_q -v Exponentiation=$public Conv_XDD.csv | \
 tr -d '\n' | \
 awk '{print substr($0,1,length($0) - 1);}' > Encrypt.csv
@@ -283,7 +283,6 @@ Remainder : 51
 $cat Encrypt.csv
 44,13,91,91,13,128,51,111,5,128,116,129,51,51
 $
-
 ```
 
 ```awk
@@ -396,6 +395,7 @@ Max : 133
 Remainder : 116
 $ cat Decrypt.csv
 74,97,98,98,97,32,116,104,101,32,72,117,116,116
+$
 ```
 
 * ダンプから起こしたunicode pointと突合する
