@@ -170,8 +170,10 @@ $
 * ここでは秘密鍵をprivateとする。
 
 ```bash
-private=`seq 2 $r | awk -f test7.awk -v Max=$r -v Public=$public`
-echo $private
+$ private=`seq 2 $r | awk -f test7.awk -v Max=$r -v Public=$public`
+$ echo $private
+11
+$
 ```
 
 ```awk
