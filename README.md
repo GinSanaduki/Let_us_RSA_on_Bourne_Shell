@@ -30,6 +30,28 @@ sed -r 's/^0+/0x/' | \
 xargs printf 'U+%04X\n' > XDD.txt
 ```
 
+```awk
+#!/usr/bin/gawk -f
+# test1.awk
+# awk -f test1.awk
+
+BEGIN{
+	FS="";
+}
+
+{
+	for(i = 1; i <= NF; i++){
+		Remainder = i % 8;
+		if(i == NF || Remainder == 0){
+			printf("%s\n", $i);
+		} else {
+			printf("%s", $i);
+		}
+	}
+}
+
+
+```
 
 ```bash
 $ cat XDD.txt
@@ -75,5 +97,36 @@ $
 $ r=`yes $p_minus1 $q_minus1 | awk '{print $1*NR RS $2*NR}' | awk 'a[$1]++{print;exit;}'`
 $ echo $r
 18
+```
+
+* 公開鍵の条件は1より大きくL(=18)よりも小さい。
+* しかも公開鍵とLとの最大公約数は１であること、つまり互いに素であることが条件。
+* ここでは公開鍵をpublicとする。
+
+```bash
+# 並列にしてはあるが、時間がそれなりにかかるので注意
+$ public=`seq 2 $r | awk -f test3.awk -v Max=$r | xargs -P 0 -r -I{} sh -c '{}' | sort -k 2n,2 -k 1n,1 | head -n 1 | cut -f 1 -d ' '`
+$ echo $public
+5
+$
+```
+
+```awk
+#!/usr/bin/gawk -f
+# test3.awk
+# awk -f test3.awk -v Max=$r
+
+BEGIN{
+	Max = Max + 0;
+	if(Max < 2){
+		exit 99;
+	}
+}
+
+{
+	$0 = $0 + 0;
+	print "yes "$0" "Max" | awk -f test4.awk | grep -Fv --line-buffered . | awk -f test5.awk | awk -f test6.awk -v Disp="$0;
+}
+
 ```
 
